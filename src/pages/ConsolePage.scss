@@ -43,7 +43,13 @@
   .content-main {
     flex-grow: 1;
     width: 100%;
-    background-color: #cccccc;
+    //background-color: #e8e8e8;
+    background-image:
+            linear-gradient(to bottom, #b3d8e6, #FFFFFF),
+            linear-gradient(to top, #ADD8E6, #FFFFFF);
+    background-repeat: no-repeat, no-repeat;
+    background-size: 100% 30%;
+    background-position: top, bottom;
     display: flex;
     justify-content: center;
     align-items: stretch;
@@ -53,6 +59,7 @@
       width: 100%;
       max-width: 1200px;
       background-color: #ffffff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       display: flex;
       flex-direction: column;
       margin: 0;
@@ -70,7 +77,46 @@
       .conversation-block {
         flex: 1;
         overflow: auto;
+        height: 100%;
         padding: 16px;
+      }
+      .content-block-body {
+        flex: 1;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        height: 80%;
+        padding: 16px;
+        scrollbar-width: thin;
+        scrollbar-color: lightblue transparent;
+      }
+
+      .content-block-body::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .content-block-body::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .content-block-body::-webkit-scrollbar-thumb {
+        background-color: lightblue;
+        border-radius: 8px;
+      }
+
+      .content-block-body::-webkit-scrollbar-button {
+        display: none;
+      }
+
+      .waiting-text {
+        position: relative;
+        display: flex;
+        font-family: 'Roboto Mono', monospace;
+        font-weight: 500;
+        font-size: 15px;
+        margin-bottom: 16px;
+        top: 50%;
+        left: 40%;
+        padding: 8px 16px;
       }
 
       .big-connect {
@@ -94,6 +140,16 @@
         background-color: #005a99;
       }
 
+      .content-block-title{
+        position: relative;
+        display: flex;
+        font-family: 'Roboto Mono', monospace;
+        font-weight: 500;
+        font-size: 18px;
+        margin-bottom: 16px;
+        padding: 8px 16px;
+      }
+
       .conversation-item {
         position: relative;
         display: flex;
@@ -109,7 +165,7 @@
 
       .conversation-item .close {
         position: absolute;
-        top: 0px;
+        top: 0;
         right: -20px;
         background: #aaa;
         color: #fff;
@@ -133,6 +189,9 @@
       .conversation-item .speaker {
         position: relative;
         text-align: left;
+        font-family: 'Roboto Mono', monospace;
+        font-size: 14px;
+        font-weight: 400;
         gap: 16px;
         width: 80px;
         flex-shrink: 0;
@@ -146,11 +205,21 @@
       .conversation-item .speaker.assistant {
         color: #009900;
       }
+      .conversation-item .speaker .timestamp {
+        font-family: 'Roboto Mono', monospace;
+        font-size: 12px;
+        font-style: italic;
+        font-weight: 400;
+      }
 
       .conversation-item .speaker-content {
+        display: flex;
+        flex-direction: column;
         color: #18181b;
         overflow: hidden;
         word-wrap: break-word;
+        font-size: 13px;
+        gap: 16px;
       }
 
       .error-message {

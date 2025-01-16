@@ -15,7 +15,7 @@ export function ContentTop({ onToggleSidebar }: ContentTopProps) {
       <div className="settings-button">
         <Button
           label="Settings"
-          buttonStyle="regular"
+          buttonStyle="action"
           onClick={onToggleSidebar}
         />
       </div>

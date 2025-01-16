@@ -10,6 +10,7 @@ import { Zap } from 'react-feather';
 
 export function ConsolePage() {
   const {
+    client,
     items,
     isConnected,
     isRecording,
@@ -73,6 +74,7 @@ export function ConsolePage() {
         <SettingsSidebar
           isOpen={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
+          client={client}
         />
       </div>
       {(isConnected || hasConversation) && (

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { RealtimeClient } from '@openai/realtime-api-beta';
 import { WavRecorder, WavStreamPlayer } from '../lib/wavtools';
 import { instructions } from '../utils/conversation_config';
@@ -14,7 +14,6 @@ export function useRealtimeClient({ apiKey }: UseRealtimeClientProps) {
   const [realtimeEvents, setRealtimeEvents] = useState<any[]>([]);
   const [isConnected, setIsConnected] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
-  const [canPushToTalk, setCanPushToTalk] = useState(false);
 
   const [itemTimestamps, setItemTimestamps] = useState<{ [id: string]: string }>({});
 
@@ -65,12 +64,11 @@ export function useRealtimeClient({ apiKey }: UseRealtimeClientProps) {
 
       if (item.status === 'completed' && item.formatted.audio?.length) {
         try {
-          const wavFile = await WavRecorder.decode(
+          item.formatted.file = await WavRecorder.decode(
             item.formatted.audio,
             24000,
             24000
           );
-          item.formatted.file = wavFile;
         } catch (error) {
           console.error('Error decoding audio:', error);
         }
@@ -147,11 +145,11 @@ export function useRealtimeClient({ apiKey }: UseRealtimeClientProps) {
   }, []);
 
   return {
+    client: clientRef.current,
     items,
     realtimeEvents,
     isConnected,
     isRecording,
-    canPushToTalk,
     connectConversation,
     disconnectConversation,
     deleteConversationItem,

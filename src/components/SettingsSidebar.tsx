@@ -16,21 +16,23 @@ import {
   Button,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { instructions } from '../utils/conversation_config';
 
 interface SettingsSidebarProps {
   isOpen: boolean;
   onClose: () => void;
+  client: any;
 }
 
-export function SettingsSidebar({ isOpen, onClose }: SettingsSidebarProps) {
-  // Состояния для выбора модели, голоса, Prompt
-  const [model, setModel] = useState('4O');
+export function SettingsSidebar({ isOpen, onClose, client }: SettingsSidebarProps) {
+
+  const [model, setModel] = useState('gpt-4o-realtime-preview-2024-12-17');
   const [voice, setVoice] = useState('alloy');
   const [prompt, setPrompt] = useState('');
 
-  // Список моделей
-  const modelOptions = ['4O', '4O-mini', 'O1', 'O1-mini'];
-  // Список голосов
+
+  const modelOptions = ['gpt-4o-realtime-preview-2024-12-17', 'gpt-4o-mini-realtime-preview-2024-12-17'];
+
   const voiceOptions = [
     'alloy',
     'ash',
@@ -44,10 +46,19 @@ export function SettingsSidebar({ isOpen, onClose }: SettingsSidebarProps) {
   ];
 
   const handleSubmit = () => {
-    console.log('Settings submitted:');
-    console.log('Model:', model);
-    console.log('Voice:', voice);
-    console.log('Prompt:', prompt);
+    if (!client) {
+      console.error('Client is not available!');
+      return;
+    }
+
+    const combinedInstructions = `${instructions}\n\nUser Context:\n${prompt}`;
+
+    client.updateSession({
+      model,
+      voice,
+      instructions: combinedInstructions,
+    });
+
     onClose();
   };
 
@@ -61,7 +72,7 @@ export function SettingsSidebar({ isOpen, onClose }: SettingsSidebarProps) {
     >
       <AppBar position="relative" color="default" sx={{ boxShadow: 'none' }}>
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontFamily: "'Roboto Mono', monospace", }}>
             Settings
           </Typography>
           <IconButton onClick={onClose} edge="end">
@@ -71,7 +82,7 @@ export function SettingsSidebar({ isOpen, onClose }: SettingsSidebarProps) {
       </AppBar>
 
       {/* Основная часть (прокрутка) */}
-      <Box sx={{ width: 300, p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <Box sx={{ width: 300, height: '100%', p: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
         <FormControl fullWidth>
           <InputLabel id="model-label">GPT Model</InputLabel>
           <Select
@@ -112,8 +123,17 @@ export function SettingsSidebar({ isOpen, onClose }: SettingsSidebarProps) {
           onChange={(e) => setPrompt(e.target.value)}
         />
 
-        <Box sx={{ textAlign: 'right' }}>
-          <Button variant="contained" onClick={handleSubmit}>
+        <Box sx={{ textAlign: 'right', mt: 'auto', }}>
+          <Button
+            variant="contained"
+            onClick={handleSubmit}
+            sx={{
+              width: '100%',
+              fontFamily: "'Roboto Mono', monospace",
+              fontWeight: 400,
+              borderRadius:"1000px"
+            }}
+          >
             Submit
           </Button>
         </Box>

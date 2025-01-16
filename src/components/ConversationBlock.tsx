@@ -14,10 +14,12 @@ export function ConversationBlock({
                                     itemTimestamps,
                                   }: ConversationBlockProps) {
   return (
-    <div className="content-block conversation">
+    <div className="conversation-block">
       <div className="content-block-title">Conversation</div>
-      <div className="content-block-body" data-conversation-content>
-        {!items.length && 'awaiting connection...'}
+      <div className="content-block-body">
+        {!items.length &&
+          <div className="waiting-text">Awaiting connection...</div>
+        }
         {items.map((item) => {
           const speakerLabel =
             (item.role || item.type)?.replaceAll('_', ' ');
@@ -32,7 +34,7 @@ export function ConversationBlock({
                 <div>
                   {speakerLabel}
                   {formattedTime && (
-                    <span className="timestamp"> [{formattedTime}]</span>
+                    <span className="timestamp"> {formattedTime}</span>
                   )}
                 </div>
                 <div className="close" onClick={() => deleteConversationItem(item.id)}>
