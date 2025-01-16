@@ -1,0 +1,196 @@
+[data-component='ConsolePage'] {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 12px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin: 0;
+
+  .content-top {
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    min-height: 48px;
+
+    .content-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      img {
+        width: 24px;
+        height: 24px;
+      }
+
+      span {
+        font-size: 16px;
+        font-weight: bold;
+        color: #18181b;
+      }
+    }
+
+    .settings-button {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .content-main {
+    flex-grow: 1;
+    width: 100%;
+    background-color: #cccccc;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    position: relative;
+
+    .content-logs {
+      width: 100%;
+      max-width: 1200px;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+      border-radius: 0;
+      overflow: hidden;
+
+      .connect-center {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .conversation-block {
+        flex: 1;
+        overflow: auto;
+        padding: 16px;
+      }
+
+      .big-connect {
+        font-size: 1.4rem;
+        padding: 12px 24px;
+        cursor: pointer;
+        background-color: #0099ff;
+        color: #ffffff;
+        border: none;
+        border-radius: 8px;
+        transition: background-color 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 3px 8px rgba(0, 153, 255, 0.2);
+      }
+
+      .big-connect:hover {
+        background-color: #007acc;
+        box-shadow: 0 4px 12px rgba(0, 122, 204, 0.4);
+      }
+
+      .big-connect:active {
+        background-color: #005a99;
+      }
+
+      .conversation-item {
+        position: relative;
+        display: flex;
+        gap: 16px;
+        margin-bottom: 16px;
+        padding: 8px 16px;
+        border-bottom: 1px solid #e7e7e7;
+      }
+
+      .conversation-item:not(:hover) .close {
+        display: none;
+      }
+
+      .conversation-item .close {
+        position: absolute;
+        top: 0px;
+        right: -20px;
+        background: #aaa;
+        color: #fff;
+        display: flex;
+        border-radius: 16px;
+        padding: 2px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+
+      .conversation-item .close:hover {
+        background: #696969;
+      }
+
+      .conversation-item .close svg {
+        stroke-width: 3;
+        width: 12px;
+        height: 12px;
+      }
+
+      .conversation-item .speaker {
+        position: relative;
+        text-align: left;
+        gap: 16px;
+        width: 80px;
+        flex-shrink: 0;
+        margin-right: 16px;
+      }
+
+      .conversation-item .speaker.user {
+        color: #0099ff;
+      }
+
+      .conversation-item .speaker.assistant {
+        color: #009900;
+      }
+
+      .conversation-item .speaker-content {
+        color: #18181b;
+        overflow: hidden;
+        word-wrap: break-word;
+      }
+
+      .error-message {
+        color: red;
+        text-align: center;
+        margin-bottom: 16px;
+      }
+    }
+  }
+  .actions-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+
+    .actions-bar-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    .actions-bar-inner .audio-visualizer {
+      width: 100%;
+      margin-top: 16px;
+      justify-content: center;
+    }
+
+    .actions-bar-inner .audio-visualizer canvas {
+      width: 100%;
+      height: 40px;
+      border-radius: 8px;
+      background-color: transparent;
+      border: none;
+      overflow: hidden;
+    }
+  }
+}
