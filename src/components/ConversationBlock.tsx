@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ItemType } from '@openai/realtime-api-beta/dist/lib/client';
 import { X } from 'react-feather';
 
@@ -13,10 +13,23 @@ export function ConversationBlock({
                                     deleteConversationItem,
                                     itemTimestamps,
                                   }: ConversationBlockProps) {
+  const eventsScrollRef = useRef<HTMLDivElement>(null);
+  const eventsScrollHeightRef = useRef(0);
+
+  useEffect(() => {
+    const scrollContainer = eventsScrollRef.current;
+    if (scrollContainer) {
+      if (scrollContainer.scrollHeight !== eventsScrollHeightRef.current) {
+        scrollContainer.scrollTop = scrollContainer.scrollHeight;
+        eventsScrollHeightRef.current = scrollContainer.scrollHeight;
+      }
+    }
+  }, [items]);
+
   return (
     <div className="conversation-block">
       <div className="content-block-title">Conversation</div>
-      <div className="content-block-body">
+      <div className="content-block-body" ref={eventsScrollRef}>
         {!items.length &&
           <div className="waiting-text">Awaiting connection...</div>
         }

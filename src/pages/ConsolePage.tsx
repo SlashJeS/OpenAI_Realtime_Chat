@@ -80,7 +80,6 @@ export function ConsolePage() {
       {(isConnected || hasConversation) && (
         <ActionsBar
           isConnected={isConnected}
-          isRecording={isRecording}
           connectConversation={connectConversation}
           disconnectConversation={disconnectConversation}
           wavRecorder={wavRecorder}

@@ -84,7 +84,7 @@
         flex: 1;
         overflow-x: hidden;
         overflow-y: scroll;
-        height: 80%;
+        max-height: calc(100vh - 300px);
         padding: 16px;
         scrollbar-width: thin;
         scrollbar-color: lightblue transparent;
@@ -250,14 +250,18 @@
     .actions-bar-inner .audio-visualizer {
       width: 100%;
       margin-top: 16px;
+      display: flex;
       justify-content: center;
+      align-items: center;
+      position: relative;
     }
 
     .actions-bar-inner .audio-visualizer canvas {
-      width: 100%;
+      width: 400px;
       height: 40px;
       border-radius: 8px;
-      background-color: transparent;
+      background-color: #f8f9fa;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       border: none;
       overflow: hidden;
     }

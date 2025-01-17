@@ -5,7 +5,6 @@ import { WavRecorder, WavStreamPlayer } from '../lib/wavtools';
 
 interface ActionsBarProps {
   isConnected: boolean;
-  isRecording: boolean;
   connectConversation: () => void;
   disconnectConversation: () => void;
   wavRecorder?: WavRecorder;
@@ -15,7 +14,6 @@ interface ActionsBarProps {
 
 export function ActionsBar({
                              isConnected,
-                             isRecording,
                              connectConversation,
                              disconnectConversation,
                              wavRecorder,
@@ -32,10 +30,16 @@ export function ActionsBar({
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
         if (ctx) {
+          const devicePixelRatio = window.devicePixelRatio || 1;
+          const width = canvas.offsetWidth * devicePixelRatio;
+          const height = canvas.offsetHeight * devicePixelRatio;
+
           if (!canvas.width || !canvas.height) {
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
+            canvas.width = width;
+            canvas.height = height;
+            ctx.scale(devicePixelRatio, devicePixelRatio);
           }
+
           ctx.clearRect(0, 0, canvas.width, canvas.height);
 
           const userFreq = wavRecorder.recording
@@ -49,10 +53,10 @@ export function ActionsBar({
           ctx.save();
 
           ctx.fillStyle = '#0099ff';
-          const barWidth = 4;
+          const barWidth = 2;
           let x = 0;
           for (let i = 0; i < userFreq.length; i++) {
-            const v = userFreq[i] * 2;
+            const v = userFreq[i];
             const y = v * h;
             ctx.fillRect(x, h - y, barWidth, y);
             x += barWidth + 1;
@@ -62,7 +66,7 @@ export function ActionsBar({
           ctx.fillStyle = '#009900';
           let x2 = w / 2;
           for (let i = 0; i < assistantFreq.length; i++) {
-            const v = assistantFreq[i] * 2;
+            const v = assistantFreq[i];
             const y = v * h;
             ctx.fillRect(x2, h - y, barWidth, y);
             x2 += barWidth + 1;

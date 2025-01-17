@@ -31,7 +31,10 @@ export function SettingsSidebar({ isOpen, onClose, client }: SettingsSidebarProp
   const [prompt, setPrompt] = useState('');
 
 
-  const modelOptions = ['gpt-4o-realtime-preview-2024-12-17', 'gpt-4o-mini-realtime-preview-2024-12-17'];
+  const modelOptions = [
+    'gpt-4o-realtime-preview-2024-12-17',
+    'gpt-4o-mini-realtime-preview-2024-12-17' // not all works, need more checks
+  ];
 
   const voiceOptions = [
     'alloy',
@@ -42,7 +45,7 @@ export function SettingsSidebar({ isOpen, onClose, client }: SettingsSidebarProp
     'onyx',
     'nova',
     'sage',
-    'shimmer',
+    'shimmer', // not all works, need more checks
   ];
 
   const handleSubmit = () => {
